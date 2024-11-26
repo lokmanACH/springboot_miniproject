@@ -6,6 +6,8 @@ import com.example.miniprojet.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/student")
 public class EtudiantController {
@@ -33,5 +35,21 @@ public class EtudiantController {
         etudiantService.deleteEtudiant(id);
         return "Student with ID " + id + " has been successfully deleted.";
     }
+    @GetMapping("/{id}")
+    public Etudiant get(@PathVariable Long id){
+        return etudiantService.getEtudiant(id);
+    }
+    @GetMapping("/search")
+    public List<Etudiant> getByName(@RequestParam("keyword") String keyword){
+        return etudiantService.getEtudiantsByName(keyword);
+    }
 
+    @GetMapping("/all")
+    public List<Etudiant> getAll(){
+        return etudiantService.getAll();
+    }
+    @GetMapping("/allSorted")
+    public List<Etudiant> getAllSorted(){
+        return etudiantService.getAllSorted();
+    }
 }

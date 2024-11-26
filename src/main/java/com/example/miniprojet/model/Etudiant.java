@@ -92,9 +92,11 @@ public class Etudiant {
     public Double getMoyGeneral() {
         if (moyS1 != null && moyS2 != null && moyS3 != null && moyS4 != null) {
             moyGeneral = (moyS1 + moyS2 + moyS3 + moyS4) / 4;
+            moyGeneral = Math.round(moyGeneral * 100.0) / 100.0;
         }
         return moyGeneral;
     }
+
 
     public void setMoyGeneral(Double moyGeneral) {
         this.moyGeneral = moyGeneral;
