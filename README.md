@@ -19,7 +19,44 @@ query : {
     "moyS3" : 16.00,
     "moyS4" : 16.45
 }
-you can't change the id 
+you can't change the id , provide the fields you want to update only
 
 # delete etudiant method url : localhost:8100/student/2121.../delete
 
+# get all students
+url : localhost:8100/student/all
+
+# get all students sorted by moyenne general
+url : localhost:8100/student/allSorted
+
+# search by a keyword
+url : localhost:8100/student/search?keyword=...
+
+# get a student
+url localhost:8100/student/id
+you pass the id directly
+
+# add a speciality
+url : localhost:8100/speciality/add
+query : {
+"nomSpec" : "...",
+"nbrPlaces" : 82
+}
+# update a speciality
+url : localhost:8100/speciality/1/update
+query : {
+
+}
+provide the fields you want to update , not the id
+
+# delete a speciality
+url : localhost:8100/speciality/1/delete
+
+# get a speciality
+url : localhost:8100/speciality/1
+
+# get all specialities
+url : localhost:8100/speciality/all
+
+#search speciality
+url : localhost:8100/speciality/search?keyword=...
