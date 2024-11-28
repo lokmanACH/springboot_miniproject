@@ -27,15 +27,24 @@ public class SpecialiteService {
     @Transactional
     public Specialite updateSpecialite(Long id, Specialite upSpecialite) {
         Specialite specialite = specialiteRepository.findById(id).get();
-        specialite.setNomSpec(upSpecialite.getNomSpec());
-        specialite.setNbrPlaces(upSpecialite.getNbrPlaces());
+        if(upSpecialite.getNomSpec() != null){
+            specialite.setNomSpec(upSpecialite.getNomSpec());
+        }
+        if (upSpecialite.getNbrPlaces() != null){
+            specialite.setNbrPlaces(upSpecialite.getNbrPlaces());
+        }
         return specialiteRepository.save(specialite);
     }
     public List<Specialite> getAll(){
         return specialiteRepository.findAll();
     }
-    public List<Specialite> getSpecialityByKeyword(String key){
-        return specialiteRepository.searchSpecialite(key);
+    public List<Specialite> searchSpecialite(String searchTerm) {
+        try {
+            Integer nbrPlaces = Integer.parseInt(searchTerm);
+            return specialiteRepository.searchSpecialiteByPlaces(nbrPlaces);
+        } catch (NumberFormatException e) {
+            return specialiteRepository.searchSpecialiteByName(searchTerm);
+        }
     }
 
 

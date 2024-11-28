@@ -1,4 +1,5 @@
 package com.example.miniprojet.model;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -75,6 +76,8 @@ public class Etudiant {
 
     @Column(name = "moy_s4")
     private Double moyS4;
+    @Transient // Not stored in the database
+    private Double moyGeneral;
 
     public Long getNumE() {
         return numE;
@@ -83,11 +86,11 @@ public class Etudiant {
     public void setNumE(Long numE) {
         this.numE = numE;
     }
-    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Choix> choices;
 
-    @Transient // Not stored in the database
-    private Double moyGeneral;
+
 
     public Double getMoyGeneral() {
         if (moyS1 != null && moyS2 != null && moyS3 != null && moyS4 != null) {
@@ -101,4 +104,6 @@ public class Etudiant {
     public void setMoyGeneral(Double moyGeneral) {
         this.moyGeneral = moyGeneral;
     }
+    public Etudiant() {}
+
 }

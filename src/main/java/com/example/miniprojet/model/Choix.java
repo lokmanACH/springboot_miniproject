@@ -1,4 +1,5 @@
 package com.example.miniprojet.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -38,5 +39,6 @@ public class Choix {
     }
     @ManyToOne
     @JoinColumn(name = "num_e", insertable = false, updatable = false) // Foreign key
+    @JsonBackReference
     private Etudiant etudiant;
 }

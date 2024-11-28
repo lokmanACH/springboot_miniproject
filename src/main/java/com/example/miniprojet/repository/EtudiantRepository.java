@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface EtudiantRepository extends JpaRepository<Etudiant,Long> {
-    @Query("SELECT e from Etudiant e where e.nom=:keyword")
+    @Query("SELECT e FROM Etudiant e WHERE LOWER(e.nom) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     public List<Etudiant> getEtudiantsByNom(@Param("keyword") String keyword);
+
+
 }

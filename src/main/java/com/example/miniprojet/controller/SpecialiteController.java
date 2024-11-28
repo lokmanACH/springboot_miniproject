@@ -45,6 +45,6 @@ public class SpecialiteController {
 
     @GetMapping("/search")
     public List<Specialite> getByKey(@RequestParam("keyword") String keyword){
-        return specialiteService.getSpecialityByKeyword(keyword);
+        return specialiteService.searchSpecialite(keyword);
     }
 }
