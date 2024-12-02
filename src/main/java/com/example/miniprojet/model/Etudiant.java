@@ -86,6 +86,15 @@ public class Etudiant {
     public void setNumE(Long numE) {
         this.numE = numE;
     }
+
+    public List<Choix> getChoices() {
+        return choices;
+    }
+
+    public void setChoices(List<Choix> choices) {
+        this.choices = choices;
+    }
+
     @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Choix> choices;

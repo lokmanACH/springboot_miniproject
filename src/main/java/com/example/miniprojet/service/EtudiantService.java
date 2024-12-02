@@ -1,14 +1,16 @@
 package com.example.miniprojet.service;
 
 
+import com.example.miniprojet.dto.EtudiantWithChoices;
+import com.example.miniprojet.model.Choix;
 import com.example.miniprojet.model.Etudiant;
+import com.example.miniprojet.model.Specialite;
 import com.example.miniprojet.repository.EtudiantRepository;
+import com.example.miniprojet.repository.SpecialiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +18,8 @@ public class EtudiantService {
 
     @Autowired
     EtudiantRepository etudiantRepository;
+    @Autowired
+    SpecialiteRepository specialiteRepository;
 
     public Etudiant addEtudiant(Etudiant etudiant){
         return etudiantRepository.save(etudiant);
@@ -57,8 +61,45 @@ public class EtudiantService {
     }
     public List<Etudiant> getAllSorted(){
         List<Etudiant> sortedEtudiants = etudiantRepository.findAll().stream()
-                .sorted(Comparator.comparingDouble(Etudiant::getMoyGeneral))
+                .sorted(Comparator.comparingDouble(Etudiant::getMoyGeneral).reversed())
                 .toList();
         return sortedEtudiants;
     }
+    public List<EtudiantWithChoices> getAllWithOrientation(){
+        List<Etudiant> sortedStudents = getAllSorted();
+        List<Specialite> specialities = specialiteRepository.findAll();
+        Map<Long, Integer> specialityPlaces = new HashMap<>();
+        Map<Long, String> specialityNames = new HashMap<>();
+        for (Specialite speciality : specialities) {
+            specialityPlaces.put(speciality.getNumSpec(), speciality.getNbrPlaces());
+            specialityNames.put(speciality.getNumSpec(), speciality.getNomSpec());
+        }
+        List<EtudiantWithChoices> studentsWithChoices = new ArrayList<>();
+        for(Etudiant etudiant : sortedStudents){
+            EtudiantWithChoices studentWithChoices = new EtudiantWithChoices(etudiant);
+            studentsWithChoices.add(studentWithChoices);
+        }
+        for (EtudiantWithChoices studentWithChoices : studentsWithChoices) {
+            List<Choix> choices = studentWithChoices.getEtudiant().getChoices();
+            if (choices == null || choices.isEmpty()) {
+                continue;
+            }
+
+            choices.sort(Comparator.comparingInt(Choix::getOrdreChoix)); // Sort by order of choice
+            for (Choix choice : choices) {
+                Long specialityId = choice.getNumSpec();
+                Integer availablePlaces = specialityPlaces.get(specialityId);
+
+                if (availablePlaces != null && availablePlaces > 0) {
+                    String specialityName = specialityNames.get(specialityId);
+                    studentWithChoices.setOrientation(specialityName);
+                    specialityPlaces.put(specialityId, availablePlaces - 1);
+                    break;
+                }
+            }
+        }
+
+        return studentsWithChoices;
+    }
+
 }

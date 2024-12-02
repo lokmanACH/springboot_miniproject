@@ -1,6 +1,7 @@
 package com.example.miniprojet.controller;
 
 
+import com.example.miniprojet.dto.EtudiantWithChoices;
 import com.example.miniprojet.model.Etudiant;
 import com.example.miniprojet.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,9 @@ public class EtudiantController {
     @GetMapping("/allSorted")
     public List<Etudiant> getAllSorted(){
         return etudiantService.getAllSorted();
+    }
+    @GetMapping("/allOrientation")
+    public List<EtudiantWithChoices> getAllWithOrientation(){
+        return etudiantService.getAllWithOrientation();
     }
 }
