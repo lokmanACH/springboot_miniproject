@@ -1,5 +1,6 @@
 # springboot_miniproject
-# add etudiant method url : localhost:8100/student/add
+# add etudiant method 
+url : localhost:8100/student/add
 query : {
     "numE" : 21215212351
     "nom" : "Chikh salah",
@@ -10,7 +11,8 @@ query : {
     "moyS4" : 16.45
     }
 
-# update etudiant method url : localhost:8100/student/2121...../update
+# update etudiant method 
+url : localhost:8100/student/2121...../update
 query : {
     "nom" : "Chikh salah",
     "prenom" : "Ahmed",
@@ -21,7 +23,8 @@ query : {
 }
 you can't change the id , provide the fields you want to update only
 
-# delete etudiant method url : localhost:8100/student/2121.../delete
+# delete etudiant method 
+url : localhost:8100/student/2121.../delete
 
 # get all students
 url : localhost:8100/student/all
@@ -58,5 +61,24 @@ url : localhost:8100/speciality/1
 # get all specialities
 url : localhost:8100/speciality/all
 
-#search speciality
+# search speciality
 url : localhost:8100/speciality/search?keyword=...
+
+# add all choies for a student
+url : localhost:8100/choice/addAll
+query : [
+{
+"numE" : 212135841251,
+"numSpec" : 1,
+"ordreChoix" : 2
+},
+{
+...
+}
+]
+you should pass a list like this
+
+
+# get all students with orientation
+url : localhost:8100/student/allOrientation
+ 
