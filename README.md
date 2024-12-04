@@ -64,7 +64,7 @@ url : localhost:8100/speciality/all
 # search speciality
 url : localhost:8100/speciality/search?keyword=...
 
-# add all choies for a student
+# add all choices for a student
 url : localhost:8100/choice/addAll
 query : [
 {
@@ -81,4 +81,30 @@ you should pass a list like this
 
 # get all students with orientation
 url : localhost:8100/student/allOrientation
- 
+
+# update all choices for a student
+url : localhost:8100/choice/updateAll
+ query : [
+{
+"numE" : 212135841251,
+"numSpec" : 1,
+"ordreChoix" : 2
+},
+{
+...
+}
+]
+you should pass a list like this with your changes
+
+# delete all choices for a student 
+url : localhost:8100/choice/deleteAll
+query : 
+{
+"numE" : 212135841251,
+"numSpec" : 1
+},
+{
+...
+}
+]
+you should pass a list like this (without order of choix)
