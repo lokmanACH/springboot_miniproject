@@ -36,4 +36,6 @@ public class Specialite {
     public void setNumSpec(Long numSpec) {
         this.numSpec = numSpec;
     }
+
+
 }
