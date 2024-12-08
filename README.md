@@ -108,3 +108,5 @@ query :
 }
 ]
 you should pass a list like this (without order of choix)
+
+### you can get speciality name but by nested form , first you get a choice then you enter speciality object , then nomSpec

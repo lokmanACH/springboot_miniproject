@@ -11,6 +11,7 @@ public class Choix {
     private Long numE;
 
     @Id
+    @Column(name = "num_spec")
     private Long numSpec;
 
     private Integer ordreChoix;
@@ -41,4 +42,24 @@ public class Choix {
     @JoinColumn(name = "num_e", insertable = false, updatable = false) // Foreign key
     @JsonBackReference
     private Etudiant etudiant;
+
+    @ManyToOne
+    @JoinColumn(name = "num_spec", insertable = false, updatable = false) // Foreign key
+    private Specialite specialite; // New relation
+
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
+    }
+
+    public Specialite getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(Specialite specialite) {
+        this.specialite = specialite;
+    }
 }
